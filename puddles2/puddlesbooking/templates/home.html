@@ -1,0 +1,18 @@
+
+{% extends "base.html" %} {% block content %} {% load staticfiles %}
+<section class="party_search">
+    <h2>Find your perfect party</h2>
+    <h3>Tell us your preferred date...</h3>
+
+    <form class="party_search_form form-horizontal" action="" method="GET">
+        {% csrf_token %}
+        {{ party_search_form.non_field_errors }}
+		{{ party_search_form.date.errors }}
+        {{party_search_form.as_p}}
+        <input class="btn btn-primary" type="submit" name="Submit" />
+    </form>
+
+</section>
+
+
+{% endblock %}

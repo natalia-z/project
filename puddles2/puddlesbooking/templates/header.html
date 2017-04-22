@@ -1,0 +1,15 @@
+{% load staticfiles %}
+<header class="header clearfix">
+        <div class="header_imgcontainer col-sm-4">
+            <a class="header_image" href="{% url 'home' %}"><img src="{% static 'img/branding/logo-small.png' %}" alt="Puddles logo"></a>
+        </div>
+        <nav class="header_nav col-sm-4">
+            <ul>
+                {% url "home" as home %} {% url "about" as about %}
+                <!--Not working - active -->
+                <li><a href="{% url 'about' %}" {% if request.path == about %} class="active" {% endif %}>About</a></li>
+                <li><a href="{% url 'venues' %}" {% if request.path == venues %} class="active" {% endif %}>Venues</a></li>
+                <li><a href="{% url 'contact' %}" {% if request.path == venues %} class="active" {% endif %}>Contact</a></li>
+            </ul>
+        </nav>
+</header>
