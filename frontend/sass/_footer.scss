@@ -1,0 +1,27 @@
+/* Footer */
+
+.footer{
+    background-color: #0C4F9D;
+    div{
+    	text-align: center;
+        ul {
+            width: auto;
+            display: inline-block;
+            padding: 1em 0 0 0;
+            li{
+                display: inline;
+                a{
+                    color: #fdfbfa;
+                    padding: 0.2em;
+                    &:hover{
+                        text-decoration: none;
+                        font-weight: bold;   
+                    }
+                } 
+            }
+        }
+    }
+    &_copyright{
+    	color: #fdfbfa;
+    }
+}

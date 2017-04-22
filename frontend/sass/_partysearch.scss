@@ -1,0 +1,25 @@
+/* Date input */
+
+.party_search{
+	width: 100%;
+	margin-top: 10%;
+	text-align: center;
+	label{
+		text-indent: -9000px;
+		display: inline-block;
+		width: 32px;
+		background: url('../img/calendar.png') no-repeat center center;
+		background-size: 100% auto;
+	}
+	&_box{
+		float: none;
+    	margin: 0 auto;
+	}
+	.datepicker{
+		 padding: 2px 10px;
+   		 width: 100px;
+		:before{
+			content: "nananan"
+		}
+	}
+}

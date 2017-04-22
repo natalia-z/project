@@ -1,0 +1,25 @@
+@import 'footer';
+@import 'header';
+@import 'partysearch';
+
+.body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.content_wrapper {
+    flex: 1;
+}
+
+body{
+	font-family: 'Rubik', sans-serif !important;
+}
+
+h1,h2,h3,h4{
+	font-family: 'Playfair Display', serif !important;
+}
+
+label{
+    font-family: 'Playfair Display', serif !important;
+}
