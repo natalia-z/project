@@ -63,6 +63,10 @@
   color: red;
   list-style: none; }
 
+.error {
+  color: red;
+  font-size: 1.2em; }
+
 .body {
   display: flex;
   min-height: 100vh;

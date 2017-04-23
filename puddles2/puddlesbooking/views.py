@@ -54,13 +54,11 @@ def availability(request):
 	filter available timeslots against exiting bookings
 	'''
 	
-	avail_timeslot_choices = []
-
 	date = datetime.datetime.strptime(request.session['date_choice'], "%Y-%m-%d").date()
 
 	bookings = Booking.objects.all().values_list('timeslot__id', flat=True).filter(date = date).filter(status = 'confirmed')
-
-	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in= bookings)
+	
+	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings)
 
 	message = None
 
@@ -107,10 +105,10 @@ def booking(request):
 	timeslot_id = request.GET.get('timeslot', '')
 	timeslot = Timeslot.objects.get(id=timeslot_id)
 	date = request.GET.get('date', '')
-	
+
 	title = "Get a quote"
 	booking_form = BookingForm(request.POST or None, initial={'date':date})
-	confirm_message = None
+	confirm_message = None	
 
 	if booking_form.is_valid():
 		
@@ -119,10 +117,12 @@ def booking(request):
 		booking.timeslot = timeslot
 		booking.status = "SUBMITTED"
 		booking.save()
+		booking_id = booking.id
 
-		name = booking_form.cleaned_data["sname"]
+		fname = booking_form.cleaned_data["fname"]
+		sname = booking_form.cleaned_data["sname"]
 		subject = 'New quote request'
-		message = '%s %s' %(name,subject)
+		message = 'You have a new quote request from %s %s for %s on %s . See the request: http://localhost:8000/admin/puddlesbooking/booking/%s/change/' %(fname,sname,timeslot,date, booking_id)
 		emailFrom = booking_form.cleaned_data["email"]
 		emailTo = [settings.EMAIL_HOST_USER, booking_form.cleaned_data["email"]]
 
@@ -131,7 +131,7 @@ def booking(request):
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
 
-	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, "confirm_message": confirm_message,}
+	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, 'confirm_message' : confirm_message, 'title' : title}
 	template = "booking.html"
 
 	return render(request, template, context)

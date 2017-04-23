@@ -7,8 +7,8 @@
             <ul>
                 {% url "home" as home %} {% url "about" as about %}
                 <!--Not working - active -->
-                <li><a href="{% url 'about' %}" {% if request.path == about %} class="active" {% endif %}>About</a></li>
-                <li><a href="{% url 'venues' %}" {% if request.path == venues %} class="active" {% endif %}>Venues</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'venues' %}">Venues</a></li>
                 <li><a href="{% url 'contact' %}" {% if request.path == venues %} class="active" {% endif %}>Contact</a></li>
             </ul>
         </nav>
