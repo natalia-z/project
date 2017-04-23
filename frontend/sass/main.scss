@@ -1,6 +1,7 @@
 @import 'footer';
 @import 'header';
 @import 'partysearch';
+@import 'errors';
 
 .body {
     display: flex;
@@ -22,4 +23,13 @@ h1,h2,h3,h4{
 
 label{
     font-family: 'Playfair Display', serif !important;
+}
+
+.col-centered{
+    float: none !important;
+    margin: 0 auto !important;
+}
+
+.btn{
+	margin-bottom: 1em !important;
 }
