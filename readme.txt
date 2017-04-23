@@ -41,3 +41,4 @@ Collect static: python manage.py collectstatic
 //Gitignore https://github.com/github/gitignore
 
 // http://programeveryday.com/post/writing-django-views-function-based-views-class-based-views-and-class-based-generic-views/
+//http://stackoverflow.com/questions/5429276/how-to-change-the-django-admin-filter-to-use-a-dropdown-instead-of-list

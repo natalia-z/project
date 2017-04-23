@@ -11,6 +11,7 @@ from django.conf import settings
 def home(request):
 	'''
 	Home page with search form
+	Search for available time slots
 	'''
 	context ={'party_search_form' : PartySearchForm}
 	template = "home.html"
@@ -30,6 +31,7 @@ def home(request):
 def about(request):
 	'''
 	About us page
+	Short business description
 	'''
 	context = {}
 	template = "about.html"
@@ -38,6 +40,7 @@ def about(request):
 def venues(request):
 	'''
 	Short venues descrpiption
+	Get each venue and display properties
 	'''
 	venue_list = Venue.objects.order_by('name')
 	context = {'venue_list':venue_list}
@@ -47,7 +50,8 @@ def venues(request):
 def availability(request):
 	'''
 	Display available timeslots for requested venue and date
-	Get the date from session variable, get all bookings, filter available timeslots against exiting bookings
+	Get the date from session variable, get all bookings, 
+	filter available timeslots against exiting bookings
 	'''
 	
 	avail_timeslot_choices = []
@@ -58,11 +62,10 @@ def availability(request):
 
 	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in= bookings)
 
-
-	initial = "Please contact me in regards to the following: " + str("missing timeslot") + " " + str(date)
-
+    # Contact us form prefilled with timeslot and date
+	initial = "Please contact me in regards to the following: " + str("missing timeslot") + " " + str(date) #for modal, timeslot??????
 	title = "Contact us"
-	form = ContactForm(request.POST or None, initial={'comment': initial}) #, 
+	form = ContactForm(request.POST or None, initial={'comment': initial})
 	confirm_message = None
 
 	if form.is_valid():
@@ -72,7 +75,7 @@ def availability(request):
 		subject = 'Contact request'
 		message = '%s %s %s' %(comment,name,phone)
 		emailFrom = form.cleaned_data["email"]
-		emailTo = [settings.EMAIL_HOST_USER]
+		emailTo = [settings.EMAIL_HOST_USER, form.cleaned_data["email"]]
 
 		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
 		title = "Thanks!"
@@ -93,46 +96,47 @@ def availability(request):
 
 def booking(request):
 	'''
-	Make a booking
+	Get a quote form
 	'''
 	timeslot_id = request.GET.get('timeslot', '')
 	timeslot = Timeslot.objects.get(id=timeslot_id)
 	date = request.GET.get('date', '')
 	
-	if request.method == "POST":
-		booking_form = BookingForm(request.POST, initial={'date':date})
+	title = "Get a quote"
+	booking_form = BookingForm(request.POST or None, initial={'date':date})
+	confirm_message = None
 
-		if booking_form.is_valid():
-			booking = booking_form.save(commit = False)
-			booking.date = date
-			booking.timeslot = timeslot
-			booking.status = "SUBMITTED"
-			booking.save()
+	if booking_form.is_valid():
+		
+		booking = booking_form.save(commit = False)
+		booking.date = date
+		booking.timeslot = timeslot
+		booking.status = "SUBMITTED"
+		booking.save()
 
-			return redirect("home")
-	else:
-		booking_form = BookingForm()
+		name = booking_form.cleaned_data["sname"]
+		subject = 'New quote request'
+		message = '%s %s' %(name,subject)
+		emailFrom = booking_form.cleaned_data["email"]
+		emailTo = [settings.EMAIL_HOST_USER, booking_form.cleaned_data["email"]]
 
-	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date}
+		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+		title = "Thanks!"
+		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
+		form = None
+
+	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, "confirm_message": confirm_message,}
 	template = "booking.html"
 
 	return render(request, template, context)
 
 # Contact form
 def contact(request):
-
-	# Get data from URL
-	data1 = request.GET.get('data1', '')
-	data2 = request.GET.get('data2', '')
-
-	# Set up initial if URL contains data
-	if(data1 or data2):
-		initial = "Please contact me in regards to the following: " + str(data1) + " " + str(data2)
-	else:
-		initial = ""
-
+	'''
+	Contact us form
+	'''
 	title = "Contact us"
-	form = ContactForm(request.POST or None, initial={'comment': initial})
+	form = ContactForm(request.POST or None)
 	confirm_message = None
 
 	if form.is_valid():
@@ -143,6 +147,7 @@ def contact(request):
 		message = '%s %s %s' %(comment,name,phone)
 		emailFrom = form.cleaned_data["email"]
 		emailTo = [settings.EMAIL_HOST_USER]
+		emailTo = form.cleaned_data["email"]
 
 		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
 		title = "Thanks!"

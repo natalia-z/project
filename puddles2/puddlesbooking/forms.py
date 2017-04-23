@@ -131,6 +131,13 @@ class BookingForm(forms.ModelForm):
 			'class': 'form-control'
 		})
 	)
+	flexible_dates = forms.BooleanField(
+		label= "Are your dates flexible?",
+		widget=forms.CheckboxInput(
+		attrs = {
+			'class': 'form-control'
+		})
+	)
 	#price plan
 	dietary_requirements = forms.ChoiceField(
 		choices = Booking.DIETARY_CHOICES,
@@ -156,10 +163,14 @@ class BookingForm(forms.ModelForm):
 
 	class Meta:
 		model = Booking
-		fields = ['fname', 'sname', 'children_names', 'male_female', 'children_ages', 'address_1', 'address_2', 'city', 'post_code', 'email', 'phone', 'number_of_children', 'number_of_babies', 'theme', 'dietary_requirements', 'allergies', 'other']
+		fields = ['fname', 'sname', 'children_names', 'male_female', 'children_ages', 'address_1', 'address_2', 
+		'city', 'post_code', 'email', 'phone', 'number_of_children', 'number_of_babies', 'theme',  
+		'dietary_requirements', 'flexible_dates', 'allergies', 'other']
 
 class ContactForm(forms.Form):
-	#Get data from URL
+	'''
+	Contact form
+	'''
 
 	name = forms.CharField(
 		required=True, 

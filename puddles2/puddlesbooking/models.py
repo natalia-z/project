@@ -31,10 +31,14 @@ date_map = {
 
 # Timeslot model
 class Timeslot(models.Model):
+	WEEKDAY_CHOICES = (
+    ('5','Saturday'),
+    ('6', 'Sunday'),
+	)
 	start_time = models.TimeField()
 	end_time = models.TimeField()
 	venue = models.ForeignKey(Venue, null=False, on_delete=models.CASCADE)
-	day_of_week = models.IntegerField(null=False)
+	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
 
 	def __unicode__(self):
 
@@ -92,8 +96,8 @@ class Booking(models.Model):
 	'''
 	Model
 	'''
-	timeslot = models.ForeignKey(Timeslot, null=True)
 	date = models.DateField(null=False)
+	timeslot = models.ForeignKey(Timeslot, null=True)
 	status = models.CharField(max_length=100, choices=STATUS_CHOICES)
 	fname = models.CharField(max_length=100, null=False)
 	sname = models.CharField(max_length=100, null=False)
@@ -105,7 +109,7 @@ class Booking(models.Model):
 	city = models.CharField(max_length=200, null=False)
 	post_code = models.CharField(max_length=200, null=False)
 	email = models.EmailField(null=False)
-	phone = models.CharField(max_length=10, null=False)
+	phone = models.CharField(max_length=20, null=False)
 	number_of_children = models.CharField(max_length=10, choices = GROUP_SIZE_CHOICES)
 	number_of_babies = models.PositiveIntegerField(null=True, blank=True)
 	theme = models.ForeignKey(Theme, null=True, on_delete=models.CASCADE)
@@ -116,17 +120,18 @@ class Booking(models.Model):
 
 	def __unicode__(self):
 		return str(self.timeslot)+" "+str(self.date)+" "+str(self.sname)
-
+'''
 class BookingAddOn(models.Model):
 	booking = models.ForeignKey(Booking, null=True, on_delete=models.CASCADE)
 	add_on = models.ForeignKey(AddOn, null=True, on_delete=models.CASCADE)
 
 	def __unicode__(self):
 		return self.id
+'''
 
-# Client model
-class Client(models.Model):
-	name = models.CharField(max_length=120)
-	
+class TermsAndConditions(models.Model):
+	name = models.CharField(max_length=30, null=False)
+	text = models.TextField(null=True, blank=True)
+
 	def __unicode__(self):
 		return self.name

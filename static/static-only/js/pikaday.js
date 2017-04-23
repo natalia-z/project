@@ -112,7 +112,11 @@
         var day = date.getDay();
         return day === 0 || day === 6;
     },
-
+    isWeekday = function(date)
+    {
+        var day = date.getDay();
+        return day === 1 || day === 2 || day === 3 || day === 4 || day === 5;
+    },
     isLeapYear = function(year)
     {
         // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
@@ -676,6 +680,8 @@
 
             opts.disableWeekends = !!opts.disableWeekends;
 
+            opts.disableWeekdays = !!opts.disableWeekdays;
+
             opts.disableDayFn = (typeof opts.disableDayFn) === 'function' ? opts.disableDayFn : null;
 
             var nom = parseInt(opts.numberOfMonths, 10) || 1;
@@ -1099,6 +1105,7 @@
                     isDisabled = (opts.minDate && day < opts.minDate) ||
                                  (opts.maxDate && day > opts.maxDate) ||
                                  (opts.disableWeekends && isWeekend(day)) ||
+                                 (opts.disableWeekdays && isWeekday(day)) ||
                                  (opts.disableDayFn && opts.disableDayFn(day));
 
                 if (isEmpty) {
