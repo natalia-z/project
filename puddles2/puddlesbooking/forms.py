@@ -20,7 +20,6 @@ class PartySearchForm(forms.Form):
 			'class' : 'datepicker',
 		})
 	)
-
 	
 class BookingForm(forms.ModelForm):
 	'''
@@ -102,6 +101,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	phone = forms.CharField(
+		error_messages = {'invalid':"Enter a valid phone number"},
 		validators=[RegexValidator('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')], 
 		widget = forms.TextInput(
 		attrs = {
@@ -159,7 +159,6 @@ class BookingForm(forms.ModelForm):
 			'placeholder': 'Add your comments here',
 		})
 	)
-
 	class Meta:
 		model = Booking
 		fields = ['fname', 'sname', 'children_names', 'male_female', 'children_ages', 'address_1', 'address_2', 

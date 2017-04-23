@@ -62,6 +62,11 @@ def availability(request):
 
 	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in= bookings)
 
+	message = None
+
+	if len(avail_timeslot_choices) < 1:
+		message = "Oops, looks like we're fully booked. Try another date."
+
     # Contact us form prefilled with timeslot and date
 	initial = "Please contact me in regards to the following: " + str("missing timeslot") + " " + str(date) #for modal, timeslot??????
 	title = "Contact us"
@@ -88,6 +93,7 @@ def availability(request):
 		"confirm_message": confirm_message,
 		'avail_timeslot_choices' : avail_timeslot_choices,
 		'date' : date,
+		'message' : message,
 	}
 	template = "availability.html"
 
