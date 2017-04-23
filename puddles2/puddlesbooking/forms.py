@@ -18,7 +18,6 @@ class PartySearchForm(forms.Form):
 		attrs = {
 			'id' : 'datepicker',
 			'class' : 'datepicker',
-			'placeholder': now,
 		})
 	)
 
@@ -182,6 +181,7 @@ class ContactForm(forms.Form):
 		})
 	)
 	phone = forms.CharField(
+		error_messages = {'invalid':"Enter a valid phone number"},
 		validators=[RegexValidator('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')], 
 		widget = forms.TextInput(
 		attrs = {

@@ -24,11 +24,20 @@
 <script src="{% static 'js/moment.js' %}"></script>
 <script src="{% static 'js/pikaday.js' %}"></script>
 <script>
+/*
+    if (moment().weekday() < 6){
+        var date = moment().weekday(6);
+        console.log(date);
+    }else{
+        date = moment();
+    }
+    console.log(date); */
     var picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'Y-MM-DD',
-        minDate: moment().toDate(),
-        defaultDate: moment().toDate(),
+        minDate: moment(),
+        defaultDate: moment().weekday(6).toDate(),
+        setDefaultDate: true,
         firstDay: 1,
         disableWeekdays: true,
         onSelect: function() {
