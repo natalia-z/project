@@ -32,11 +32,22 @@
         date = moment();
     }
     console.log(date); */
+    var moment = moment();
+    var firstDate = moment.add(2, 'week');
+
+    var dayOfWeek = firstDate.day();
+
+    while(dayOfWeek < 6)
+    {
+        firstDate = firstDate.add(1, 'day');
+        dayOfWeek = firstDate.day();
+    }
+
     var picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'Y-MM-DD',
-        minDate: moment(),
-        defaultDate: moment().weekday(6).toDate(),
+        minDate: firstDate.toDate(),
+        defaultDate: firstDate.toDate(),
         setDefaultDate: true,
         firstDay: 1,
         disableWeekdays: true,

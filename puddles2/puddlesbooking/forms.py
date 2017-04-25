@@ -117,10 +117,12 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	number_of_babies = forms.IntegerField(
+		required = False,
 		label = "Estimated number of babies in arms/on laps not participating (under 1 year old):",
 		widget=forms.NumberInput(
 		attrs = {
-			'class': 'form-control'
+			'class': 'form-control',
+			'required': 'no'
 		})
 	)
 	theme = forms.ModelChoiceField(
@@ -146,6 +148,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	allergies = forms.CharField(
+		required = False,
 		widget = forms.TextInput(
 		attrs = {
 			'class': 'form-control',
@@ -153,6 +156,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	other = forms.CharField(
+		required = False,
 		widget = forms.Textarea(
 		attrs = {
 			'class': 'form-control',

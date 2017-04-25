@@ -66,7 +66,7 @@ def availability(request):
 		message = "Oops, looks like we're fully booked. Try another date."
 
     # Contact us form prefilled with timeslot and date
-	initial = "Please contact me in regards to the following: " + str("missing timeslot") + " " + str(date) #for modal, timeslot??????
+	initial = "Please contact me in regards to the following: [timeslot] " + str(date) #for modal, timeslot??????
 	title = "Contact us"
 	form = ContactForm(request.POST or None, initial={'comment': initial})
 	confirm_message = None
@@ -91,7 +91,6 @@ def availability(request):
 		"confirm_message": confirm_message,
 		'avail_timeslot_choices' : avail_timeslot_choices,
 		'date' : date,
-		'message' : message,
 	}
 	template = "availability.html"
 
