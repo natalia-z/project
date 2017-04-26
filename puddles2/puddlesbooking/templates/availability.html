@@ -28,9 +28,15 @@ $(function(){
         <p><a href="{% url 'home' %}">&laquo; Go back to the search</a></p>
         {% endif %}
 
-            {% for timeslot in avail_timeslot_choices %}
 
-                <div class="row eventEntry">
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+  
+        <ul>
+            {% for timeslot in filter.qs %}
+                           <div class="row eventEntry">
                     <h4 class="eventTitle"> {{ timeslot.venue.name }} </h4>
                     <h4 class="eventDate" timeslot="{{ timeslot.start_time}}"> {{ date|date:"d F Y" }} | {{ timeslot.start_time}}</h4>
                     <p> {{timeslot.venue.description}} </p>
@@ -68,7 +74,9 @@ $(function(){
                         <br>
                         <br>
                 </div>
-                {% endfor %}
+            {% endfor %}
+        </ul>
+
             </form>
         </div>
     </div>

@@ -37,7 +37,7 @@ class Timeslot(models.Model):
 	)
 	start_time = models.TimeField()
 	end_time = models.TimeField()
-	venue = models.ForeignKey(Venue, null=False, on_delete=models.CASCADE)
+	venue = models.ForeignKey(Venue, related_name="venue", null=False, on_delete=models.CASCADE)
 	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
 
 	def __unicode__(self):

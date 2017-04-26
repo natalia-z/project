@@ -6,6 +6,8 @@ import operator
 from .forms import PartySearchForm, BookingForm, ContactForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import render
+from .filters import TimeslotFilter
 
 
 def home(request):
@@ -60,6 +62,8 @@ def availability(request):
 	
 	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings)
 
+	timeslot_filter = TimeslotFilter(request.GET, queryset=avail_timeslot_choices)
+
 	message = None
 
 	if len(avail_timeslot_choices) < 1:
@@ -91,6 +95,8 @@ def availability(request):
 		"confirm_message": confirm_message,
 		'avail_timeslot_choices' : avail_timeslot_choices,
 		'date' : date,
+		'message' : message,
+		'filter': timeslot_filter,
 	}
 	template = "availability.html"
 
