@@ -1,26 +1,21 @@
 {% extends 'base.html' %} 
-
-
-
 {% block content %}
 
+<!-- Add timeslot data in the contact us popup textarea -->
 <script>
 $(function(){
-
     var entries = $(".eventEntry");
-
     $(entries).each(function() {
         var timeslot = $(this).find(".eventDate").attr("timeslot");
-
         var commentBox = $(this).find("textarea#id_comment");
         var comment = commentBox.text();
-
         comment = comment.replace("[timeslot]", timeslot)
         commentBox.text(comment);
     });     
-
 });
 </script>
+
+<!-- Display available choices -->
     <div class="col-xs-10 col-centered">
         <h3>Choose your party...</h3>
         {% if message %}

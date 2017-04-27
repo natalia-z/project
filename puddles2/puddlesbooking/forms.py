@@ -3,7 +3,6 @@ from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.core.validators import RegexValidator
 from django.forms import ModelForm, Form
-
 from .models import Venue, Booking, Theme
 
 
@@ -71,6 +70,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	address_2 = forms.CharField(
+		required = False,
 		label = "Address line 2",
 		widget = forms.TextInput(
 		attrs = {
@@ -110,6 +110,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	number_of_children = forms.ChoiceField(
+		required = False,
 		choices = Booking.GROUP_SIZE_CHOICES,
 		widget=forms.Select(
 		attrs = {
@@ -133,10 +134,11 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	flexible_dates = forms.BooleanField(
+		required = False,
 		label= "Are your dates flexible?",
 		widget=forms.CheckboxInput(
 		attrs = {
-			'class': 'form-control'
+			'class': 'checkbox'
 		})
 	)
 	#price plan
@@ -173,7 +175,11 @@ class ContactForm(forms.Form):
 	'''
 	Contact form
 	'''
-
+	CHOICES = (
+		('phone', 'Phone'),
+		('email', 'Email'),
+		('3', '3'),
+	)
 	name = forms.CharField(
 		required=True, 
 		max_length=100,
@@ -199,9 +205,16 @@ class ContactForm(forms.Form):
 			'class': 'form-control',
 		})
 	)
-
-	comment = forms.CharField(
+	contact_method = forms.ChoiceField(
 		required=True,
+		choices = CHOICES,
+		widget = forms.Select(
+		attrs = {
+			'class': 'form-control',
+		})
+	)
+	comment = forms.CharField(
+		required=False,
 		widget = forms.Textarea(
 		attrs = {
 			'class': 'form-control',

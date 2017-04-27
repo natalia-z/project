@@ -1,11 +1,7 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from django.utils import timezone
 import datetime
-
-# Create your models here.
-
 
 # Venue model
 class Venue(models.Model):
@@ -44,13 +40,14 @@ class Timeslot(models.Model):
 
 		return self.venue.name+" "+date_map[self.day_of_week]+" "+str(self.start_time)
 
-#Theme model
+# Theme model
 class Theme(models.Model):
 	name = models.CharField(max_length=30, null=False)
 
 	def __unicode__(self):
 		return self.name
 
+# Add-on model
 class AddOn(models.Model):
 	name = models.CharField(max_length=200, null=False)
 	price = models.DecimalField(max_digits=6, decimal_places=2)

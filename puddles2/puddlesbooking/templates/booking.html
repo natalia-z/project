@@ -1,20 +1,32 @@
+{% extends 'base.html' %} 
+{% block content %}
 
-{% extends 'base.html' %} {% block content %}
 <div class="booking">
     <div class="col-xs-10 col-sm-8 col-md-6 col-lg-4 col-xl-4 col-centered">
-        <h3>Get a quote:</h3>
+
+        <!-- On form submit display confirmation message -->
         {% if confirm_message %}
+
+            <h1>{{ title }}</h1>
             <p>{{ confirm_message}}</p>
-        {% endif %}
-        {% if booking_form %}
+        
+        {% else %}
+
+        <!-- Display venue and date -->
+        <h3>Get a quote:</h3>
         <h4>{{ timeslot.venue }}</h4>
         <h5>{{ date }} {{ timeslot.start_time}}</h5>
+
+        <!-- Display booking form -->
         <form method="POST" class="form-horizontal" action="" name="booking_form">
         	{% csrf_token %}
             {{ booking_form.as_p}}
             <button class="btn btn-block btn-primary" type="submit" value="Get a quote"><i class="fa fa-birthday-cake" aria-hidden="true"> Get a quote </i></button>
         </form>
+
         {% endif %}
+
     </div>
 </div>
+
 {% endblock %}

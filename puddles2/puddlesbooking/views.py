@@ -157,8 +157,7 @@ def contact(request):
 		subject = 'Contact request'
 		message = '%s %s %s' %(comment,name,phone)
 		emailFrom = form.cleaned_data["email"]
-		emailTo = [settings.EMAIL_HOST_USER]
-		emailTo = form.cleaned_data["email"]
+		emailTo = [settings.EMAIL_HOST_USER, form.cleaned_data["email"]]
 
 		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
 		title = "Thanks!"
