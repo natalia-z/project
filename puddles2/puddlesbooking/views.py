@@ -1,13 +1,16 @@
-from django.shortcuts import render, redirect
-from .models import Venue, Timeslot, Booking
+# Django imports
 from datetime import datetime, timedelta
 import datetime
 import operator
-from .forms import PartySearchForm, BookingForm, ContactForm
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import render
-from .filters import TimeslotFilter
+
+# App internal imports
+from .models import Venue, Timeslot, Booking
+from .forms import PartySearchForm, BookingForm, ContactForm
+from .filters import TimeslotFilter, VenueFilter
 
 
 def home(request):
@@ -15,8 +18,6 @@ def home(request):
 	Home page with search form
 	Search for available time slots
 	'''
-	context ={'party_search_form' : PartySearchForm}
-	template = "home.html"
 
 	if request.method == 'GET':
 		party_search_form = PartySearchForm(request.GET)
@@ -28,6 +29,11 @@ def home(request):
 			
 			return redirect('availability/')
 
+	template = "home.html"
+	context ={
+		'party_search_form' : PartySearchForm
+	}
+
 	return render(request, template, context)
 
 def about(request):
@@ -35,8 +41,9 @@ def about(request):
 	About us page
 	Short business description
 	'''
-	context = {}
 	template = "about.html"
+	context = {}
+
 	return render(request, template, context)
 
 def venues(request):
@@ -44,9 +51,14 @@ def venues(request):
 	Short venues descrpiption
 	Get each venue and display properties
 	'''
-	venue_list = Venue.objects.order_by('name')
-	context = {'venue_list':venue_list}
+	venue_list = Venue.objects.all()
+	venue_filter = VenueFilter(request.GET, queryset=venue_list)
+	context = {
+		'venue_list' : venue_list,
+		'filter' : venue_filter
+	}
 	template = "venues.html"
+
 	return render(request, template, context)
 
 def availability(request):
@@ -166,4 +178,5 @@ def contact(request):
 		
 	context = {"title": title, "form": form, "confirm_message": confirm_message,}
 	template = "contact.html"
+
 	return render(request,template,context)

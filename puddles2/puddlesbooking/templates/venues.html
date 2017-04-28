@@ -1,22 +1,41 @@
+{% extends 'base.html' %} 
+{% block content %}
 
-{% extends 'base.html' %} {% block content %}
 <div class="venues">
     <div class="col-xs-8 col-centered text-center">
-        {% for venue in venue_list %}
-            <h2>{{venue.name}}</h2>
+
+    <!-- Filter -->
+        <form method="get">
+            <div class="panel panel-default">
+            <h4>Search for a venue:</h4>
+            <div>
+                {{ filter.form.as_p }}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-primary"></span>Search</button>
+            </div>
+            </div>
+        </form>
+  
+        <!-- Display venues -->
+            <ul>
+                {% for venue in filter.qs %}
+                <h2>{{venue.name}}</h2>
                 <div class="row">
-                <p>{{venue.description}}</p>
+                    <p>{{venue.description}}</p>
                 </div>
                 <div>
-                <p><strong>Location: {{venue.address_1}},{% if venue.address_2 %} {{venue.address_2}},{% endif %} {{ venue.post_code}} {{venue.city}}</strong></p>
-                <p>Parking: {{venue.parking}}</p>
-                <p>Groups from: {{venue.group_min}} to {{venue.group_max}}</p>
-                <p>Catering: {% if venue.catering %} yes {% else %} no {% endif %}</p>
-                <p>BYO Food: {% if venue.own_food %} yes {% else %} no {% endif %}</p>
-                <br>
-                <br>
-            </div>
-        {% endfor %}
+                    <p><strong>Location: {{venue.address_1}},{% if venue.address_2 %} {{venue.address_2}},{% endif %} {{ venue.post_code}} {{venue.city}}</strong></p>
+                    <p>Parking: {{venue.parking}}</p>
+                    <p>Groups from: {{venue.group_min}} to {{venue.group_max}}</p>
+                    <p>Catering: {% if venue.catering %} yes {% else %} no {% endif %}</p>
+                    <p>BYO Food: {% if venue.own_food %} yes {% else %} no {% endif %}</p>
+                    <br>
+                    <br>
+                </div>
+                {% endfor %}
+            </ul>
+
         <p>To find out more visit our <a href="http://www.puddles.london/venues/" target="_blank">website</a> or <a href="#">contact us</a>.</p>
     </div>
 </div>

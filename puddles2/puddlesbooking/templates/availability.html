@@ -23,22 +23,31 @@ $(function(){
         <p><a href="{% url 'home' %}">&laquo; Go back to the search</a></p>
         {% endif %}
 
-
+        <!-- Display filter -->
         <form method="get">
-            {{ filter.form.as_p }}
-            <button type="submit" class="btn btn-primary">Search</button>
+            <div class="panel panel-default">
+                <h4>Customize your search:</h4>
+                <div>
+                    {{ filter.form.as_p }}
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </div>
         </form>
-  
+        
+        <!-- Display available timeslots -->
         <ul>
             {% for timeslot in filter.qs %}
-                           <div class="row eventEntry">
+                <div class="row eventEntry">
                     <h4 class="eventTitle"> {{ timeslot.venue.name }} </h4>
-                    <h4 class="eventDate" timeslot="{{ timeslot.start_time}}"> {{ date|date:"d F Y" }} | {{ timeslot.start_time}}</h4>
+                    <h4 class="eventDate" timeslot="{{ timeslot }}"> {{ date|date:"d F Y" }} | {{ timeslot.start_time}}</h4>
                     <p> {{timeslot.venue.description}} </p>
 
                     <a href="{% url 'booking' %}?timeslot={{timeslot.id}}&date={{date}}" class="btn btn-primary">Get a quote</a>
                     <a href="#modal-{{forloop.counter}}" class="btn btn-primary"  data-toggle="modal" data-timeslot-text="hello">Contact us</a>
                     
+                    <!-- Modal popup contact form -->
                     <div class="modal fade" id="modal-{{forloop.counter}}">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -66,13 +75,12 @@ $(function(){
                             </div>
                         </div>
                     </div>
-                        <br>
-                        <br>
+                    <br>
+                    <br>
                 </div>
             {% endfor %}
         </ul>
-
-            </form>
+        </form>
         </div>
     </div>
 {% endblock %}

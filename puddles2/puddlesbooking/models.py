@@ -3,8 +3,10 @@ from django.db import models
 from django.utils import timezone
 import datetime
 
-# Venue model
 class Venue(models.Model):
+	'''
+	Venue Model
+	'''
 	name = models.CharField(max_length=120)
 	description = models.TextField(default="description default text")
 	address_1 = models.CharField(max_length=200, null=False)
@@ -24,9 +26,11 @@ date_map = {
 	5: "Saturday",
 	6: "Sunday"
 }
-
-# Timeslot model
+	
 class Timeslot(models.Model):
+	'''
+	Timeslot Model
+	'''
 	WEEKDAY_CHOICES = (
     ('5','Saturday'),
     ('6', 'Sunday'),
@@ -37,28 +41,33 @@ class Timeslot(models.Model):
 	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
 
 	def __unicode__(self):
-
 		return self.venue.name+" "+date_map[self.day_of_week]+" "+str(self.start_time)
 
-# Theme model
+
 class Theme(models.Model):
+	'''
+	Theme Model
+	'''
 	name = models.CharField(max_length=30, null=False)
 
 	def __unicode__(self):
 		return self.name
 
-# Add-on model
+
 class AddOn(models.Model):
+	'''
+	Add-on Model
+	'''
 	name = models.CharField(max_length=200, null=False)
 	price = models.DecimalField(max_digits=6, decimal_places=2)
 
 	def __unicode__(self):
 		return self.name
 
-# Booking model
+
 class Booking(models.Model):
 	'''
-	Choices
+	Booking Model
 	'''
 	STATUS_CHOICES = (
     ('confirmed','CONFIRMED'),
@@ -127,6 +136,9 @@ class BookingAddOn(models.Model):
 '''
 
 class TermsAndConditions(models.Model):
+	'''
+	Terms and Conditions Model
+	'''
 	name = models.CharField(max_length=30, null=False)
 	text = models.TextField(null=True, blank=True)
 
