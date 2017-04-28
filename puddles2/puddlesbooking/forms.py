@@ -1,8 +1,11 @@
+# Imports
 import datetime
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.core.validators import RegexValidator
 from django.forms import ModelForm, Form
+
+# App internal imports
 from .models import Venue, Booking, Theme
 
 
@@ -178,7 +181,6 @@ class ContactForm(forms.Form):
 	CHOICES = (
 		('phone', 'Phone'),
 		('email', 'Email'),
-		('3', '3'),
 	)
 	name = forms.CharField(
 		required=True, 
@@ -206,6 +208,7 @@ class ContactForm(forms.Form):
 		})
 	)
 	contact_method = forms.ChoiceField(
+		label = "Preferred contact method",
 		required=True,
 		choices = CHOICES,
 		widget = forms.Select(

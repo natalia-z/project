@@ -1,15 +1,17 @@
-
 {% extends "base.html" %} 
-
 {% block content %}
 
+<!-- Contact us -->
 <div class="contact">
 	<div class="col-xs-10 col-sm-8 col-md-6 col-lg-4 col-xl-4 col-centered">
 	    <h1> {{ title }} </h1> 
 
+	    <!-- On form submit display confirmation message -->
 	    {% if confirm_message %}
 	    	<p>{{ confirm_message}}</p>
-	    {% endif %} 
+	    {% endif %}
+
+	    <!-- Display form --> 
 	    {% if form %}
 	    	<form method="POST" action=""> 
 	    		{% csrf_token %} 
@@ -17,6 +19,7 @@
 	        	<input class="btn btn-primary" type="submit" value="Send">
 	    	</form>
 	    {% endif %}
+	    
 	</div>
 </div>
 

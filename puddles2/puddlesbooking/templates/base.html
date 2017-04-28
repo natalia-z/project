@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Head -->
 <head>
     <meta charset="utf-8">
     <title>Puddles</title>
@@ -15,23 +16,27 @@
     <script src="{% static 'js/bootstrap.js' %}"></script>
 </head>
 
+<!-- Body -->
 <body class="body">
+
     <div class="content_wrapper">
-        {% include "header.html" %} {% block content %} {% endblock %}
+
+        <!-- Header -->
+        {% include "header.html" %} 
+
+        <!-- Content -->
+        {% block content %} 
+        {% endblock %}
+
     </div>
+
+    <!-- Footer -->
     {% include "footer.html" %}
 
+<!-- Pikaday script -->
 <script src="{% static 'js/moment.js' %}"></script>
 <script src="{% static 'js/pikaday.js' %}"></script>
 <script>
-/*
-    if (moment().weekday() < 6){
-        var date = moment().weekday(6);
-        console.log(date);
-    }else{
-        date = moment();
-    }
-    console.log(date); */
     var moment = moment();
     var firstDate = moment.add(2, 'week');
 

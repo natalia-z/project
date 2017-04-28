@@ -15,10 +15,8 @@ from .filters import TimeslotFilter, VenueFilter
 
 def home(request):
 	'''
-	Home page with search form
 	Search for available time slots
 	'''
-
 	if request.method == 'GET':
 		party_search_form = PartySearchForm(request.GET)
 
@@ -29,6 +27,7 @@ def home(request):
 			
 			return redirect('availability/')
 
+	# Template, context
 	template = "home.html"
 	context ={
 		'party_search_form' : PartySearchForm
@@ -39,7 +38,6 @@ def home(request):
 def about(request):
 	'''
 	About us page
-	Short business description
 	'''
 	template = "about.html"
 	context = {}
@@ -48,16 +46,17 @@ def about(request):
 
 def venues(request):
 	'''
-	Short venues descrpiption
-	Get each venue and display properties
+	Venues descrpiption
 	'''
 	venue_list = Venue.objects.all()
 	venue_filter = VenueFilter(request.GET, queryset=venue_list)
+
+	# Template, context
+	template = "venues.html"
 	context = {
 		'venue_list' : venue_list,
 		'filter' : venue_filter
 	}
-	template = "venues.html"
 
 	return render(request, template, context)
 
@@ -82,7 +81,7 @@ def availability(request):
 		message = "Oops, looks like we're fully booked. Try another date."
 
     # Contact us form prefilled with timeslot and date
-	initial = "Please contact me in regards to the following: [timeslot] " + str(date) #for modal, timeslot??????
+	initial = "Please contact me in regards to the following: [timeslot] " + str(date)
 	title = "Contact us"
 	form = ContactForm(request.POST or None, initial={'comment': initial})
 	confirm_message = None
@@ -101,6 +100,8 @@ def availability(request):
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
 
+	# Template, context
+	template = "availability.html"
 	context = {
 		"title": title, 
 		"form": form, 
@@ -110,7 +111,6 @@ def availability(request):
 		'message' : message,
 		'filter': timeslot_filter,
 	}
-	template = "availability.html"
 
 	return render(request, template, context)
 
@@ -148,9 +148,10 @@ def booking(request):
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
 
-	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, 'confirm_message' : confirm_message, 'title' : title}
+	# Template, context
 	template = "booking.html"
-
+	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, 'confirm_message' : confirm_message, 'title' : title}
+	
 	return render(request, template, context)
 
 # Contact form
@@ -176,7 +177,8 @@ def contact(request):
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
 		
-	context = {"title": title, "form": form, "confirm_message": confirm_message,}
+	# Template, context
 	template = "contact.html"
+	context = {"title": title, "form": form, "confirm_message": confirm_message,}
 
 	return render(request,template,context)
