@@ -165,7 +165,7 @@ class BookingForm(forms.ModelForm):
 		widget = forms.Textarea(
 		attrs = {
 			'class': 'form-control',
-			'placeholder': 'Add your comments here',
+			'placeholder': "Please write here any information about your child you might think is important, what they like or dislike, anything that will help us make it more personal for them",
 		})
 	)
 	class Meta:
