@@ -8,7 +8,7 @@ from django.conf import settings
 from django.shortcuts import render
 
 # App internal imports
-from .models import Venue, Timeslot, Booking
+from .models import Venue, Timeslot, Booking, DisabledDates
 from .forms import PartySearchForm, BookingForm, ContactForm
 from .filters import TimeslotFilter, VenueFilter
 
@@ -70,8 +70,10 @@ def availability(request):
 	date = datetime.datetime.strptime(request.session['date_choice'], "%Y-%m-%d").date()
 
 	bookings = Booking.objects.all().values_list('timeslot__id', flat=True).filter(date = date).filter(status = 'confirmed')
+
+	disabled = DisabledDates.objects.all().values_list('timeslots__id', flat=True).filter(date = date)
 	
-	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings)
+	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings).exclude(id__in = disabled)
 
 	timeslot_filter = TimeslotFilter(request.GET, queryset=avail_timeslot_choices)
 

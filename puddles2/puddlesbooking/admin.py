@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # App internal imports
-from .models import Venue, Timeslot, Theme, Booking, TermsAndConditions
+from .models import Venue, Timeslot, Theme, Booking, TermsAndConditions, DisabledDates
 
 class VenueModelAdmin(admin.ModelAdmin):
 	'''
@@ -58,9 +58,11 @@ class BookingModelAdmin(admin.ModelAdmin):
 	get_venue_name.short_description = 'Venue name' 
 	get_venue_name.admin_order_field  = 'timeslot__venue'
 
+
 # Register
 admin.site.register(Venue, VenueModelAdmin)
 admin.site.register(Timeslot, TimeslotModelAdmin)
 admin.site.register(Booking, BookingModelAdmin)
 admin.site.register(Theme)
 admin.site.register(TermsAndConditions)
+admin.site.register(DisabledDates)

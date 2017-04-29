@@ -42,7 +42,7 @@ class Timeslot(models.Model):
 	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
 
 	def __unicode__(self):
-		return self.venue.name+" "+date_map[self.day_of_week]+" "+str(self.start_time)
+		return self.venue.name+" "+date_map[self.day_of_week]+" "+ self.start_time.strftime("%H:%M")
 
 
 class Theme(models.Model):
@@ -145,3 +145,14 @@ class TermsAndConditions(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+
+class DisabledDates(models.Model):
+	'''
+	Dates disabled from booking
+	'''
+	date = models.DateField(null=False)
+	timeslots = models.ManyToManyField(Timeslot)
+
+	def __unicode__(self):
+		return str(self.date)
