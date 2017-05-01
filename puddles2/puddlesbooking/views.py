@@ -8,7 +8,7 @@ from django.conf import settings
 from django.shortcuts import render
 
 # App internal imports
-from .models import Venue, Timeslot, Booking, DisabledDates
+from .models import Venue, Timeslot, Booking, Unavailable
 from .forms import PartySearchForm, BookingForm, ContactForm
 from .filters import TimeslotFilter, VenueFilter
 
@@ -64,16 +64,17 @@ def availability(request):
 	'''
 	Display available timeslots for requested venue and date
 	Get the date from session variable, get all bookings, 
-	filter available timeslots against exiting bookings
+	get disabled dates, filter available timeslots against 
+	exiting bookings and disabled dates
 	'''
 	
 	date = datetime.datetime.strptime(request.session['date_choice'], "%Y-%m-%d").date()
 
 	bookings = Booking.objects.all().values_list('timeslot__id', flat=True).filter(date = date).filter(status = 'confirmed')
 
-	disabled = DisabledDates.objects.all().values_list('timeslots__id', flat=True).filter(date = date)
+	unavailable = Unavailable.objects.all().values_list('timeslots__id', flat=True).filter(date = date)
 	
-	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings).exclude(id__in = disabled)
+	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings).exclude(id__in = unavailable)
 
 	timeslot_filter = TimeslotFilter(request.GET, queryset=avail_timeslot_choices)
 
@@ -170,7 +171,7 @@ def contact(request):
 		comment = form.cleaned_data["comment"]
 		phone = form. cleaned_data["phone"]
 		subject = 'Contact request'
-		message = '%s %s %s' %(comment,name,phone)
+		message = '%s | %s | %s' %(comment,name,phone)
 		emailFrom = form.cleaned_data["email"]
 		emailTo = [settings.EMAIL_HOST_USER, form.cleaned_data["email"]]
 

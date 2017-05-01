@@ -127,16 +127,19 @@ class Booking(models.Model):
 
 	def __unicode__(self):
 		return str(self.timeslot)+" "+str(self.date)+" "+str(self.sname)
-'''
-class BookingAddOn(models.Model):
-	booking = models.ForeignKey(Booking, null=True, on_delete=models.CASCADE)
-	add_on = models.ForeignKey(AddOn, null=True, on_delete=models.CASCADE)
+
+class AddOn(models.Model):
+	'''
+	Additions to the booking
+	'''
+	name = models.CharField(max_length=30, null=False)
+	description = models.TextField(null=True, blank=True)
+	price = models.DecimalField(max_digits=6, decimal_places=2)
 
 	def __unicode__(self):
 		return self.id
-'''
 
-class TermsAndConditions(models.Model):
+class Content(models.Model):
 	'''
 	Terms and Conditions Model
 	'''
@@ -147,7 +150,7 @@ class TermsAndConditions(models.Model):
 		return self.name
 
 
-class DisabledDates(models.Model):
+class Unavailable(models.Model):
 	'''
 	Dates disabled from booking
 	'''

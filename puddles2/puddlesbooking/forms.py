@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 from django.forms import ModelForm, Form
 
 # App internal imports
-from .models import Venue, Booking, Theme, DisabledDates
+from .models import Venue, Booking, Theme, Unavailable
 
 
 class PartySearchForm(forms.Form):
