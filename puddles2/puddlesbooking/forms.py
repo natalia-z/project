@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 from django.forms import ModelForm, Form
 
 # App internal imports
-from .models import Venue, Booking, Theme, Unavailable
+from .models import Venue, Booking, Theme, Unavailable, AddOn
 
 
 class PartySearchForm(forms.Form):
@@ -159,6 +159,10 @@ class BookingForm(forms.ModelForm):
 			'class': 'form-control',
 			'placeholder': 'max 200 characters',
 		})
+	)
+	add_ons = forms.ModelMultipleChoiceField(
+		queryset=AddOn.objects.all(),
+		widget = forms.CheckboxSelectMultiple()
 	)
 	other = forms.CharField(
 		required = False,

@@ -4,21 +4,31 @@ from django.db import models
 from django.utils import timezone
 import datetime
 
+class PricePlan(models.Model):
+	'''
+	Base price plan
+	'''
+	name = models.CharField(max_length=120)
+	description = models.TextField(null=False)
+	price = models.DecimalField(max_digits=6, decimal_places=2)
+
+	def __unicode__(self):
+		return self.name
+
 class Venue(models.Model):
 	'''
 	Venue Model
 	'''
 	name = models.CharField(max_length=120)
-	description = models.TextField(default="description default text")
+	description = models.TextField(null=False)
 	address_1 = models.CharField(max_length=200, null=False)
 	address_2 = models.CharField(max_length=200, null=True, blank=True)
 	city = models.CharField(max_length=200, null=False)
 	post_code = models.CharField(max_length=200, null=False)
-	parking = models.CharField(max_length=120, default="parking default text", blank=True, null=True)
+	parking = models.CharField(max_length=120, null=False)
 	group_min = models.IntegerField(default=5)
 	group_max = models.IntegerField(default=25) 
-	catering = models.BooleanField(default=True)
-	own_food = models.BooleanField(default=True)
+	price_plans = models.ManyToManyField(PricePlan)
 
 	def __unicode__(self):
 		return self.name
@@ -57,9 +67,10 @@ class Theme(models.Model):
 
 class AddOn(models.Model):
 	'''
-	Add-on Model
+	Additions to the booking
 	'''
-	name = models.CharField(max_length=200, null=False)
+	name = models.CharField(max_length=30, null=False)
+	description = models.TextField(null=True, blank=True)
 	price = models.DecimalField(max_digits=6, decimal_places=2)
 
 	def __unicode__(self):
@@ -123,21 +134,12 @@ class Booking(models.Model):
 	dietary_requirements = models.CharField(max_length=50, choices = DIETARY_CHOICES, null=True, blank=True)
 	allergies = models.CharField(max_length=300, null=True, blank=True)
 	flexible_dates  = models.BooleanField(default=True)
+	#price_plan = models.ManyToManyField(AddOn)
+	addons = models.ManyToManyField(AddOn)
 	other = models.TextField(null=True, blank=True)
 
 	def __unicode__(self):
 		return str(self.timeslot)+" "+str(self.date)+" "+str(self.sname)
-
-class AddOn(models.Model):
-	'''
-	Additions to the booking
-	'''
-	name = models.CharField(max_length=30, null=False)
-	description = models.TextField(null=True, blank=True)
-	price = models.DecimalField(max_digits=6, decimal_places=2)
-
-	def __unicode__(self):
-		return self.id
 
 class Content(models.Model):
 	'''

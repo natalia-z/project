@@ -2,15 +2,16 @@
 from django.contrib import admin
 
 # App internal imports
-from .models import Venue, Timeslot, Theme, Booking, Content, Unavailable
+from .models import Venue, Timeslot, Theme, Booking, Content, Unavailable, AddOn, PricePlan
 
 class VenueModelAdmin(admin.ModelAdmin):
 	'''
 	Venue Admin Model
 	'''
 	list_display = ["name", "city", "post_code"]
-	list_filter = ["catering", "own_food", "city", "post_code"]
+	list_filter = ["city", "post_code"]
 	search_fields = ["name", "city"]
+
 	class Meta:
 		model = Venue
 
@@ -66,3 +67,5 @@ admin.site.register(Booking, BookingModelAdmin)
 admin.site.register(Theme)
 admin.site.register(Content)
 admin.site.register(Unavailable)
+admin.site.register(AddOn)
+admin.site.register(PricePlan)
