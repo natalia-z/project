@@ -74,7 +74,7 @@ def availability(request):
 
 	unavailable = Unavailable.objects.all().values_list('timeslots__id', flat=True).filter(date = date)
 	
-	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings).exclude(id__in = unavailable)
+	avail_timeslot_choices = Timeslot.objects.filter(day_of_week = date.weekday()).exclude(id__in = bookings).exclude(id__in = unavailable).exclude(active=False)
 
 	timeslot_filter = TimeslotFilter(request.GET, queryset=avail_timeslot_choices)
 

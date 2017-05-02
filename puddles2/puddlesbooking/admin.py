@@ -9,7 +9,7 @@ class VenueModelAdmin(admin.ModelAdmin):
 	Venue Admin Model
 	'''
 	list_display = ["name", "city", "post_code"]
-	list_filter = ["city", "post_code"]
+	list_filter = ["city", "post_code", "active"]
 	search_fields = ["name", "city"]
 
 	class Meta:
@@ -20,8 +20,9 @@ class TimeslotModelAdmin(admin.ModelAdmin):
 	Timeslot Admin Model
 	'''
 	list_display = ["venue", "day_of_week", "start_time", "end_time"]
-	list_filter = ["venue", "day_of_week", "start_time", "end_time"]
-	search_fields = ["venue", "day_of_week", "start_time", "end_time"]
+	list_filter = ["venue", "day_of_week", "start_time", "end_time", "active"]
+	search_fields = ["venue"]
+	
 	class Meta:
 		model = Timeslot
 
@@ -31,7 +32,7 @@ class BookingModelAdmin(admin.ModelAdmin):
 	'''
 	list_display = ["get_venue_name", "get_start_time","get_end_time", "date", "get_day_of_week", "sname", "status"]
 	list_filter = ["timeslot__venue", "timeslot__start_time","timeslot__end_time", "date", "timeslot__day_of_week", "sname", "status"]
-	search_fields = ["get_venue_name", "get_start_time","get_end_time", "date", "get_day_of_week", "sname", "status"]
+	search_fields = ["timeslot__venue__name", "sname", "fname"]
 
 	class Meta:
 		model = Booking

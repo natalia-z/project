@@ -29,6 +29,7 @@ class Venue(models.Model):
 	group_min = models.IntegerField(default=5)
 	group_max = models.IntegerField(default=25) 
 	price_plans = models.ManyToManyField(PricePlan)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -43,13 +44,14 @@ class Timeslot(models.Model):
 	Timeslot Model
 	'''
 	WEEKDAY_CHOICES = (
-    ('5','Saturday'),
-    ('6', 'Sunday'),
+    (5,'Saturday'),
+    (6, 'Sunday'),
 	)
 	start_time = models.TimeField()
 	end_time = models.TimeField()
-	venue = models.ForeignKey(Venue, related_name="venue", null=False, on_delete=models.CASCADE)
+	venue = models.ForeignKey(Venue, related_name="venue", null=False, on_delete=models.PROTECT, limit_choices_to={'active':True})
 	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.venue.name+" "+date_map[self.day_of_week]+" "+ self.start_time.strftime("%H:%M")
@@ -115,7 +117,7 @@ class Booking(models.Model):
 	Model
 	'''
 	date = models.DateField(null=False)
-	timeslot = models.ForeignKey(Timeslot, null=True)
+	timeslot = models.ForeignKey(Timeslot, null=True, on_delete=models.PROTECT)
 	status = models.CharField(max_length=100, choices=STATUS_CHOICES)
 	fname = models.CharField(max_length=100, null=False)
 	sname = models.CharField(max_length=100, null=False)
@@ -130,7 +132,7 @@ class Booking(models.Model):
 	phone = models.CharField(max_length=20, null=False)
 	number_of_children = models.CharField(max_length=10, choices = GROUP_SIZE_CHOICES)
 	number_of_babies = models.PositiveIntegerField(null=True, blank=True)
-	theme = models.ForeignKey(Theme, null=True, on_delete=models.CASCADE)
+	theme = models.ForeignKey(Theme, null=True, on_delete=models.PROTECT)
 	dietary_requirements = models.CharField(max_length=50, choices = DIETARY_CHOICES, null=True, blank=True)
 	allergies = models.CharField(max_length=300, null=True, blank=True)
 	flexible_dates  = models.BooleanField(default=True)
