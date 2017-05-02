@@ -43,8 +43,8 @@ class Timeslot(models.Model):
 	Timeslot Model
 	'''
 	WEEKDAY_CHOICES = (
-    ('5','Saturday'),
-    ('6', 'Sunday'),
+    (5,'Saturday'),
+    (6, 'Sunday'),
 	)
 	start_time = models.TimeField()
 	end_time = models.TimeField()
