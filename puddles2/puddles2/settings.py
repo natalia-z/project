@@ -27,7 +27,7 @@ SECRET_KEY = '$j%b5bl)1^25vy0ecgp^3uj9$l$br7ldf9$8yvjze4+hq0(5dd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['puddlesbooking.herokuapp.com']
 
 
 # Application definition
