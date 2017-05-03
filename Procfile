@@ -1,1 +1,1 @@
-web: python website/manage.py runserver
+web: python puddles2/manage.py runserver
