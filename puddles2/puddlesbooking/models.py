@@ -62,6 +62,7 @@ class Theme(models.Model):
 	Theme Model
 	'''
 	name = models.CharField(max_length=30, null=False)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -74,6 +75,7 @@ class AddOn(models.Model):
 	name = models.CharField(max_length=30, null=False)
 	description = models.TextField(null=True, blank=True)
 	price = models.DecimalField(max_digits=6, decimal_places=2)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -132,12 +134,12 @@ class Booking(models.Model):
 	phone = models.CharField(max_length=20, null=False)
 	number_of_children = models.CharField(max_length=10, choices = GROUP_SIZE_CHOICES)
 	number_of_babies = models.PositiveIntegerField(null=True, blank=True)
-	theme = models.ForeignKey(Theme, null=True, on_delete=models.PROTECT)
+	theme = models.ForeignKey(Theme, null=True, on_delete=models.PROTECT, limit_choices_to={'active':True})
 	dietary_requirements = models.CharField(max_length=50, choices = DIETARY_CHOICES, null=True, blank=True)
 	allergies = models.CharField(max_length=300, null=True, blank=True)
 	flexible_dates  = models.BooleanField(default=True)
 	#price_plan = models.ManyToManyField(AddOn)
-	addons = models.ManyToManyField(AddOn)
+	addons = models.ManyToManyField(AddOn, limit_choices_to={'active':True})
 	other = models.TextField(null=True, blank=True)
 
 	def __unicode__(self):
