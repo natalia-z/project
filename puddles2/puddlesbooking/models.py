@@ -29,6 +29,7 @@ class Venue(models.Model):
 	group_min = models.IntegerField(default=5)
 	group_max = models.IntegerField(default=25) 
 	price_plans = models.ManyToManyField(PricePlan)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -48,8 +49,9 @@ class Timeslot(models.Model):
 	)
 	start_time = models.TimeField()
 	end_time = models.TimeField()
-	venue = models.ForeignKey(Venue, related_name="venue", null=False, on_delete=models.CASCADE)
+	venue = models.ForeignKey(Venue, related_name="venue", null=False, on_delete=models.PROTECT, limit_choices_to={'active':True})
 	day_of_week = models.IntegerField(null=False, choices=WEEKDAY_CHOICES)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.venue.name+" "+date_map[self.day_of_week]+" "+ self.start_time.strftime("%H:%M")
@@ -60,6 +62,7 @@ class Theme(models.Model):
 	Theme Model
 	'''
 	name = models.CharField(max_length=30, null=False)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -72,6 +75,7 @@ class AddOn(models.Model):
 	name = models.CharField(max_length=30, null=False)
 	description = models.TextField(null=True, blank=True)
 	price = models.DecimalField(max_digits=6, decimal_places=2)
+	active = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.name
@@ -115,7 +119,7 @@ class Booking(models.Model):
 	Model
 	'''
 	date = models.DateField(null=False)
-	timeslot = models.ForeignKey(Timeslot, null=True)
+	timeslot = models.ForeignKey(Timeslot, null=True, on_delete=models.PROTECT)
 	status = models.CharField(max_length=100, choices=STATUS_CHOICES)
 	fname = models.CharField(max_length=100, null=False)
 	sname = models.CharField(max_length=100, null=False)
@@ -130,12 +134,12 @@ class Booking(models.Model):
 	phone = models.CharField(max_length=20, null=False)
 	number_of_children = models.CharField(max_length=10, choices = GROUP_SIZE_CHOICES)
 	number_of_babies = models.PositiveIntegerField(null=True, blank=True)
-	theme = models.ForeignKey(Theme, null=True, on_delete=models.CASCADE)
+	theme = models.ForeignKey(Theme, null=True, on_delete=models.PROTECT, limit_choices_to={'active':True})
 	dietary_requirements = models.CharField(max_length=50, choices = DIETARY_CHOICES, null=True, blank=True)
 	allergies = models.CharField(max_length=300, null=True, blank=True)
 	flexible_dates  = models.BooleanField(default=True)
 	#price_plan = models.ManyToManyField(AddOn)
-	addons = models.ManyToManyField(AddOn)
+	addons = models.ManyToManyField(AddOn, limit_choices_to={'active':True})
 	other = models.TextField(null=True, blank=True)
 
 	def __unicode__(self):
