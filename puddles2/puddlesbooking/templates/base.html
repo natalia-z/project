@@ -2,66 +2,66 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Head -->
-<head>
-    <meta charset="utf-8">
-    <title>Puddles</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pikaday.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <script src="https://use.fontawesome.com/431ee31c28.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="{% static 'js/bootstrap.js' %}"></script>
-</head>
+    <!-- Head -->
+    <head>
+        <meta charset="utf-8">
+        <title>Puddles</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pikaday.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+        <script src="https://use.fontawesome.com/431ee31c28.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+    </head>
 
-<!-- Body -->
-<body class="body">
+    <!-- Body -->
+    <body class="body">
 
-    <div class="content_wrapper">
+        <div class="content_wrapper">
 
-        <!-- Header -->
-        {% include "header.html" %} 
+            <!-- Header -->
+            {% include "header.html" %} 
 
-        <!-- Content -->
-        {% block content %} 
-        {% endblock %}
+            <!-- Content -->
+            {% block content %} 
+            {% endblock %}
 
-    </div>
+        </div>
 
-    <!-- Footer -->
-    {% include "footer.html" %}
+        <!-- Footer -->
+        {% include "footer.html" %}
 
-<!-- Pikaday script -->
-<script src="{% static 'js/moment.js' %}"></script>
-<script src="{% static 'js/pikaday.js' %}"></script>
-<script>
-    var moment = moment();
-    var firstDate = moment.add(2, 'week');
+        <!-- Pikaday script -->
+        <script src="{% static 'js/moment.js' %}"></script>
+        <script src="{% static 'js/pikaday.js' %}"></script>
+        <script>
+            var moment = moment();
+            var firstDate = moment.add(2, 'week');
 
-    var dayOfWeek = firstDate.day();
+            var dayOfWeek = firstDate.day();
 
-    while(dayOfWeek < 6)
-    {
-        firstDate = firstDate.add(1, 'day');
-        dayOfWeek = firstDate.day();
-    }
+            while(dayOfWeek < 6)
+            {
+                firstDate = firstDate.add(1, 'day');
+                dayOfWeek = firstDate.day();
+            }
 
-    var picker = new Pikaday({
-        field: document.getElementById('datepicker'),
-        format: 'Y-MM-DD',
-        minDate: firstDate.toDate(),
-        defaultDate: firstDate.toDate(),
-        setDefaultDate: true,
-        firstDay: 1,
-        disableWeekdays: true,
-        onSelect: function() {
-            console.log(this.getMoment().format('Do MMMM YYYY'));
-        }
-    });
-</script>
+            var picker = new Pikaday({
+                field: document.getElementById('datepicker'),
+                format: 'Y-MM-DD',
+                minDate: firstDate.toDate(),
+                defaultDate: firstDate.toDate(),
+                setDefaultDate: true,
+                firstDay: 1,
+                disableWeekdays: true,
+                onSelect: function() {
+                    console.log(this.getMoment().format('Do MMMM YYYY'));
+                }
+            });
+        </script>
 
-</body>
+    </body>
 
 </html>
