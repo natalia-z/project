@@ -14,12 +14,15 @@ $break-large: 480px;
     .imgcontainer{
         max-width: 120px;
         padding: 1em;
+        @media screen and (max-width: $break-large){
+            margin-left: auto;
+            margin-right: auto;
+        }
         img{
             max-width: 100%;
         }
     }
     ul {
-        margin-right: 3em;
         li {
             display: inline;
             a {

@@ -28,22 +28,24 @@
   .header .imgcontainer {
     max-width: 120px;
     padding: 1em; }
+    @media screen and (max-width: 480px) {
+      .header .imgcontainer {
+        margin-left: auto;
+        margin-right: auto; } }
     .header .imgcontainer img {
       max-width: 100%; }
-  .header ul {
-    margin-right: 3em; }
-    .header ul li {
-      display: inline; }
-      .header ul li a {
-        color: #0C4F9D;
-        display: inline-block;
-        position: relative;
-        z-index: 1;
-        padding: 0.5em;
-        font-size: 1.2em; }
-        .header ul li a:hover {
-          text-decoration: none;
-          font-weight: bold; }
+  .header ul li {
+    display: inline; }
+    .header ul li a {
+      color: #0C4F9D;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      padding: 0.5em;
+      font-size: 1.2em; }
+      .header ul li a:hover {
+        text-decoration: none;
+        font-weight: bold; }
 
 .party_search {
   width: 100%;
@@ -97,6 +99,11 @@
       transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; }
   .panel .btn {
     margin-bottom: 0 !important; }
+
+.panel div {
+  max-width: 100%; }
+.panel select {
+  max-width: 100%; }
 
 .body {
   display: flex;
