@@ -196,13 +196,15 @@ class ContactForm(forms.Form):
 		})
 	)
 	phone = forms.CharField(
+		label = 'Mobile phone number',
 		error_messages = {'invalid':"Enter a valid phone number."},
-		#validators=[RegexValidator('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')], 
+		validators=[RegexValidator('^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$')], 
 		widget = forms.TextInput(
 		attrs = {
 			'class': 'form-control',
 			'placeholder': 'e.g. 07712345678',
-			'pattern' : '^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$'
+			'pattern' : '^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$',
+			'title' : 'e.g. 07712345678'
 		})
 	)
 	email = forms.EmailField(
