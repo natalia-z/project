@@ -1,18 +1,17 @@
 {% load staticfiles %}
 <header class="header clearfix">
-        <div class="col-sm-2 col-sm-offset-2">
+        <div class="col-xs-12 col-sm-2 col-sm-offset-2">
             <div class="imgcontainer">
                 <a class="header_image" href="{% url 'home' %}"><img src="{% static 'img/branding/puddles-w120.png' %}" alt="Puddles logo"></a>
             </div>
         </div>
-       <nav class="navbar col-sm-6 col-sm-offset-2">
-            <ul>
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'venues' %}">Venues</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-        </nav>
-
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'venues' %}">Venues</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </nav>   
+        </div>
 </header>
-
-
