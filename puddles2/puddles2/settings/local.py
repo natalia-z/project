@@ -29,6 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['puddlesbooking.herokuapp.com', 'localhost']
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Application definition
 
