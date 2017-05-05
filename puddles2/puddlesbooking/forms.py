@@ -218,6 +218,7 @@ class ContactForm(forms.Form):
 		widget = forms.TextInput(
 		attrs = {
 			'class': 'form-control',
+			'pattern' : "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
 		})
 	)
 	contact_method = forms.ChoiceField(
