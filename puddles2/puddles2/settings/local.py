@@ -125,8 +125,6 @@ DATE_FORMAT = "Y-m-d"
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 
-
-
 if DEBUG:
     MEDIA_URL = '/media/'
     STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "static", "static-only")
@@ -138,7 +136,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(os.path.join(PROJECT_ROOT, 'staticfiles'))
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
