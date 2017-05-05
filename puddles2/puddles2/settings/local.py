@@ -25,11 +25,10 @@ EMAIL_USE_TLS = True
 SECRET_KEY = '$j%b5bl)1^25vy0ecgp^3uj9$l$br7ldf9$8yvjze4+hq0(5dd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['puddlesbooking.herokuapp.com', 'localhost']
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Application definition
 
@@ -124,6 +123,8 @@ DATE_FORMAT = "Y-m-d"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATIC_URL = '/static/'
+
 
 if DEBUG:
     MEDIA_URL = '/media/'
@@ -132,16 +133,3 @@ if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "static", "static"),
     )
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(os.path.join(PROJECT_ROOT, 'staticfiles'))
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
