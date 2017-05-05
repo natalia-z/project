@@ -19,7 +19,7 @@
         <h5>{{ date }} {{ timeslot.start_time}}</h5>
 
         <!-- Display booking form -->
-        <form method="POST" class="form-horizontal" action="" name="booking_form">
+        <form method="POST" class="form-horizontal" action="." name="booking_form">
         	{% csrf_token %}
             {{ booking_form.as_p}}
             <button class="btn btn-block btn-primary" type="submit" value="Get a quote"><i class="fa fa-birthday-cake" aria-hidden="true"> Get a quote </i></button>
