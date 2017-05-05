@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # App internal imports
-from .models import Venue, Timeslot, Theme, Booking, Content, Unavailable, AddOn, PricePlan
+from .models import Venue, Timeslot, Theme, Booking, Unavailable, AddOn, PricePlan
 
 class VenueModelAdmin(admin.ModelAdmin):
 	'''
@@ -66,7 +66,6 @@ admin.site.register(Venue, VenueModelAdmin)
 admin.site.register(Timeslot, TimeslotModelAdmin)
 admin.site.register(Booking, BookingModelAdmin)
 admin.site.register(Theme)
-admin.site.register(Content)
 admin.site.register(Unavailable)
 admin.site.register(AddOn)
 admin.site.register(PricePlan)

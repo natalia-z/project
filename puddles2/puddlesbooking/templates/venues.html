@@ -28,8 +28,11 @@
                     <p><strong>Location: {{venue.address_1}},{% if venue.address_2 %} {{venue.address_2}},{% endif %} {{ venue.post_code}} {{venue.city}}</strong></p>
                     <p>Parking: {{venue.parking}}</p>
                     <p>Groups from: {{venue.group_min}} to {{venue.group_max}}</p>
+                    <!--
                     <p>Catering: {% if venue.catering %} yes {% else %} no {% endif %}</p>
                     <p>BYO Food: {% if venue.own_food %} yes {% else %} no {% endif %}</p>
+                    -->
+                    <p>{% for price_plan in venue.price_plans.all %} {{ price_plan.name}}{% endfor%}</p>
                     <br>
                     <br>
                 </div>

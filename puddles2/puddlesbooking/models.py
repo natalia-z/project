@@ -145,16 +145,6 @@ class Booking(models.Model):
 	def __unicode__(self):
 		return str(self.timeslot)+" "+str(self.date)+" "+str(self.sname)
 
-class Content(models.Model):
-	'''
-	Terms and Conditions Model
-	'''
-	name = models.CharField(max_length=30, null=False)
-	text = models.TextField(null=True, blank=True)
-
-	def __unicode__(self):
-		return self.name
-
 
 class Unavailable(models.Model):
 	'''
