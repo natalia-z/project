@@ -142,7 +142,7 @@ def booking(request):
 		fname = booking_form.cleaned_data["fname"]
 		sname = booking_form.cleaned_data["sname"]
 		subject = 'New quote request'
-		message = 'You have a new quote request from %s %s for %s on %s . See the request: http://localhost:8000/admin/puddlesbooking/booking/%s/change/' %(fname,sname,timeslot,date, booking_id)
+		message = 'You have a new quote request from %s %s for %s on %s . See the request: https://puddlesbooking.herokuapp.com/admin/puddlesbooking/booking/%s/change/' %(fname,sname,timeslot,date, booking_id)
 		emailFrom = booking_form.cleaned_data["email"]
 		emailTo = [settings.EMAIL_HOST_USER, booking_form.cleaned_data["email"]]
 
