@@ -135,7 +135,7 @@ class Booking(models.Model):
 	number_of_children = models.CharField(max_length=10, choices = GROUP_SIZE_CHOICES)
 	number_of_babies = models.PositiveIntegerField(null=True, blank=True)
 	theme = models.ForeignKey(Theme, null=True, on_delete=models.PROTECT, limit_choices_to={'active':True})
-	price_plan = models.ForeignKey(PricePlan, null=False, on_delete=models.PROTECT)
+	price_plan = models.CharField(max_length=20, null=False)
 	dietary_requirements = models.CharField(max_length=50, choices = DIETARY_CHOICES, null=True, blank=True)
 	allergies = models.CharField(max_length=300, null=True, blank=True)
 	flexible_dates  = models.BooleanField(default=True)
