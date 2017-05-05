@@ -126,7 +126,6 @@ class BookingForm(forms.ModelForm):
 		widget=forms.NumberInput(
 		attrs = {
 			'class': 'form-control',
-			'required': 'no'
 		})
 	)
 	theme = forms.ModelChoiceField(
@@ -167,6 +166,7 @@ class BookingForm(forms.ModelForm):
 		})
 	)
 	add_ons = forms.ModelMultipleChoiceField(
+		required = False,
 		queryset=AddOn.objects.all(),
 		widget = forms.CheckboxSelectMultiple()
 	)
