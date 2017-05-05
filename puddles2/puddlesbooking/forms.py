@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 from django.forms import ModelForm, Form
 
 # App internal imports
-from .models import Venue, Booking, Theme, Unavailable, AddOn
+from .models import Venue, Booking, Theme, Unavailable, AddOn, PricePlan
 
 
 class PartySearchForm(forms.Form):
@@ -144,7 +144,13 @@ class BookingForm(forms.ModelForm):
 			'class': 'checkbox'
 		})
 	)
-	#price plan
+	price_plan = forms.ModelChoiceField(
+		queryset = PricePlan.objects.all(),
+		widget=forms.Select(
+		attrs = {
+			'class': 'form-control'
+		})
+	)
 	dietary_requirements = forms.ChoiceField(
 		choices = Booking.DIETARY_CHOICES,
 		widget=forms.Select(
@@ -175,8 +181,8 @@ class BookingForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = ['fname', 'sname', 'children_names', 'male_female', 'children_ages', 'address_1', 'address_2', 
-		'city', 'post_code', 'email', 'phone', 'number_of_children', 'number_of_babies', 'theme',  
-		'dietary_requirements', 'flexible_dates', 'allergies', 'other']
+		'city', 'post_code', 'email', 'phone', 'number_of_children', 'number_of_babies', 'theme', 'price_plan', 
+		'dietary_requirements', 'flexible_dates', 'allergies', 'other' ]
 
 class ContactForm(forms.Form):
 	'''
