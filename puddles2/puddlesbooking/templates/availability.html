@@ -19,8 +19,8 @@ $(function(){
     <div class="col-sm-8 col-centered">
         <h3>Choose your party...</h3>
         {% if message %}
-        <p class="error">{{confirm_message}}</p>
-        <p><a href="{% url 'home' %}">&laquo; Go back to the search</a></p>
+        <p class="text-success">{{confirm_message}}</p>
+        <p><a href="{% url 'home' %}" class="text-success">&laquo; Go back to home page</a></p>
         {% endif %}
 
         <!-- Display filter -->
