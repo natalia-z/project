@@ -11,6 +11,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'bonjourdata@gmail.com'
@@ -126,6 +127,7 @@ DATE_FORMAT = "Y-m-d"
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "static", "static")
 
 if DEBUG:
     MEDIA_URL = '/media/'
