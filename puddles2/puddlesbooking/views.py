@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 import datetime
 import operator
+import requests
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
@@ -123,7 +124,9 @@ def booking(request):
 	Get a quote form
 	'''
 	timeslot_id = request.GET.get('timeslot', '')
+	print(timeslot_id)
 	timeslot = Timeslot.objects.get(id=timeslot_id)
+	print (timeslot)
 	date = request.GET.get('date', '')
 
 	title = "Get a quote"
