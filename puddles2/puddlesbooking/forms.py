@@ -101,6 +101,7 @@ class BookingForm(forms.ModelForm):
 		widget = forms.TextInput(
 		attrs = {
 			'class': 'form-control',
+			'pattern' : "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
 		})
 	)
 	phone = forms.CharField(
@@ -110,6 +111,8 @@ class BookingForm(forms.ModelForm):
 		attrs = {
 			'class': 'form-control',
 			'placeholder': 'e.g. 07712345678',
+			'pattern' : '^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$',
+			'title' : 'e.g. 07712345678'
 		})
 	)
 	number_of_children = forms.ChoiceField(
