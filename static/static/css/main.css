@@ -98,6 +98,9 @@
 .panel select {
   max-width: 100%; }
 
+.eventEntry {
+  padding-left: 0.2em; }
+
 .body {
   display: flex;
   min-height: 100vh;
