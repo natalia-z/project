@@ -119,16 +119,19 @@ def availability(request):
 	return render(request, template, context)
 
 
-def booking(request):
+def booking(request,id,date):
 	'''
 	Get a quote form
+	'''
 	'''
 	timeslot_id = request.GET.get('timeslot', '')
 	print(timeslot_id)
 	timeslot = Timeslot.objects.get(id=timeslot_id)
 	print (timeslot)
 	date = request.GET.get('date', '')
-
+	'''
+	timeslot = Timeslot.objects.get(id=id)
+	date = date
 	title = "Get a quote"
 	booking_form = BookingForm(request.POST or None, initial={'date':date})
 	confirm_message = None	
@@ -153,7 +156,7 @@ def booking(request):
 		title = "Thanks!"
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
-
+		
 	# Template, context
 	template = "booking.html"
 	context = {'booking_form' : booking_form, 'timeslot' : timeslot, 'date' : date, 'confirm_message' : confirm_message, 'title' : title}

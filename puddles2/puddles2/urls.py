@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^about/$', views.about, name='about'),
     url(r'^venues/$', views.venues, name='venues'),
     url(r'^availability/$', views.availability, name='availability'),
-    url(r'^booking/', views.booking, name='booking'),
+    url(r'^booking/(?P<id>\d+)/(?P<date>\d{4}-\d{2}-\d{2})/', views.booking, name='booking'),
     url(r'^contact/$', views.contact, name='contact'),
 ]
 

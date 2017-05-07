@@ -43,7 +43,7 @@ $(function(){
                 <h4 class="eventDate" timeslot="{{ timeslot }}"> {{ date|date:"d F Y" }} | {{ timeslot.start_time}}</h4>
                 <p> {{timeslot.venue.description}} </p>
 
-                <a href="{% url 'booking' %}?timeslot={{timeslot.id}}&date={{date}}" class="btn btn-primary">Get a quote</a>
+                <a href="{% url 'booking' timeslot.id date %}" class="btn btn-primary">Get a quote</a>
                 <a href="#modal-{{forloop.counter}}" class="btn btn-primary"  data-toggle="modal" data-timeslot-text="hello">Contact us</a>
                     
                 <!-- Modal popup contact form -->
