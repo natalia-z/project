@@ -14,8 +14,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bonjourdata@gmail.com'
-EMAIL_HOST_PASSWORD = 'yuvygrsasifrcwfc'
+EMAIL_HOST_USER = 'puddlesbooking@gmail.com'
+EMAIL_HOST_PASSWORD = 'rgsupzkwlcmpjlsb'
 EMAIL_PORT = '587'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
