@@ -141,7 +141,7 @@ def booking(request,id,date):
 		booking = booking_form.save(commit = False)
 		booking.date = date
 		booking.timeslot = timeslot
-		booking.status = "SUBMITTED"
+		booking.status = "submitted"
 		booking.save()
 		booking_id = booking.id
 
