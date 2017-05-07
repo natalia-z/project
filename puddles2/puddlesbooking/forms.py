@@ -181,6 +181,14 @@ class BookingForm(forms.ModelForm):
 			'placeholder': "Please write here any information about your child you might think is important, what they like or dislike, anything that will help us make it more personal for them",
 		})
 	)
+	ccme = forms.BooleanField(
+		required = False,
+		label= "Send me a copy",
+		widget=forms.CheckboxInput(
+		attrs = {
+			'class': 'checkbox'
+		})
+	)
 	class Meta:
 		model = Booking
 		fields = ['fname', 'sname', 'children_names', 'male_female', 'children_ages', 'address_1', 'address_2', 
@@ -239,5 +247,13 @@ class ContactForm(forms.Form):
 		attrs = {
 			'class': 'form-control',
 			'placeholder': 'Add your comments here',
+		})
+	)
+	ccme_contact = forms.BooleanField(
+		required = False,
+		label= "Send me a copy",
+		widget=forms.CheckboxInput(
+		attrs = {
+			'class': 'checkbox'
 		})
 	)

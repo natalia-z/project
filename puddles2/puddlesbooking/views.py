@@ -145,14 +145,22 @@ def booking(request,id,date):
 		booking.save()
 		booking_id = booking.id
 
+		ccme = booking_form.cleaned_data["ccme"]
 		fname = booking_form.cleaned_data["fname"]
 		sname = booking_form.cleaned_data["sname"]
 		subject = 'New quote request'
 		message = 'You have a new quote request from %s %s for %s on %s . See the request: https://puddlesbooking.herokuapp.com/admin/puddlesbooking/booking/%s/change/' %(fname,sname,timeslot,date, booking_id)
+		message2 = 'Thank you for submitting your request. The following message has been sent to Puddles: You have a new quote request from %s %s for %s on %s.' %(fname,sname,timeslot,date)
 		emailFrom = booking_form.cleaned_data["email"]
-		emailTo = [settings.EMAIL_HOST_USER]
+		emailTo = [settings.EMAIL_HOST_USER,]
+		emailTo2  = [booking_form.cleaned_data["email"],]		
 
-		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+		if ccme == True:
+			send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+			send_mail(subject, message2, emailFrom, emailTo2, fail_silently = False)
+		else:
+			send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+
 		title = "Thanks!"
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
@@ -173,15 +181,23 @@ def contact(request):
 	confirm_message = None
 
 	if form.is_valid():
+		ccme_contact = form.cleaned_data["ccme_contact"]
 		name = form.cleaned_data["name"]
 		comment = form.cleaned_data["comment"]
 		phone = form. cleaned_data["phone"]
 		subject = 'Contact request'
-		message = '%s | %s | %s' %(comment,name,phone)
+		message = 'You have a new contact request: %s | %s | %s' %(name,phone, comment)
+		message2 = 'Thank you for contacting us. The following message has been sent to Puddles: You have a new contact request: %s | %s | %s' %(name,phone, comment)
 		emailFrom = form.cleaned_data["email"]
-		emailTo = [settings.EMAIL_HOST_USER, form.cleaned_data["email"]]
+		emailTo = [settings.EMAIL_HOST_USER,]
+		emailTo2 = [form.cleaned_data["email"],]
 
-		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+		if ccme_contact == True:
+			send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+			send_mail(subject, message2, emailFrom, emailTo2, fail_silently = False)
+		else:
+			send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
+
 		title = "Thanks!"
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
 		form = None
