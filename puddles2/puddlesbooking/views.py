@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
 
 # App internal imports
 from .models import Venue, Timeslot, Booking, Unavailable
@@ -102,7 +104,8 @@ def availability(request):
 		send_mail(subject, message, emailFrom, emailTo, fail_silently = False)
 		title = "Thanks!"
 		confirm_message = "Thank you for contacting Puddles. We will get back to you within 72 hours"
-		form = None
+		return HttpResponseRedirect('/availability/')
+		
 
 	# Template, context
 	template = "availability.html"
